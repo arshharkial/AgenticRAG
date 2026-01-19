@@ -10,3 +10,5 @@
 - Implemented core identity & security layer (JWT, Tenant extraction, RBAC).
 - Initialized database models and session management.
 - Implemented Storage Service (S3) and Vector Store Service (Pinecone).
+- Setup Celery worker and multi-modal ingestion pipeline.
+- Implemented base processors for Text and Image content.

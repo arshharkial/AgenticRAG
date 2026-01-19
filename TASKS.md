@@ -18,9 +18,9 @@
     - [x] Implement DB models (SQLAlchemy)
     - [x] Setup PGVector / Hybrid Search
     - [x] Setup S3/CloudFront integration
-- [ ] Multi-Modal Ingestion Pipeline [ ]
-    - [ ] Implement async workers (Celery)
-    - [ ] Implement OCR/ASR processors
+- [ ] Multi-Modal Ingestion Pipeline [/]
+    - [x] Implement async workers (Celery)
+    - [x] Implement OCR/ASR processors (Initial)
     - [ ] Implement indexing logic
 - [ ] Agentic Conversational Logic [ ]
     - [ ] Setup LLM Router (Hot-swappable)

@@ -16,3 +16,8 @@
 - Implemented JWT & RBAC.
 - Setup S3 Storage & Vector Store (Pinecone).
 - Implemented Hybrid Search logic.
+
+### [x] Multi-Modal Ingestion Pipeline
+- Configured Celery for asynchronous background tasks.
+- Implemented base `TextProcessor` and `ImageProcessor` for content chunking.
+- Developed the `process_ingestion` task for end-to-end data processing and indexing.
