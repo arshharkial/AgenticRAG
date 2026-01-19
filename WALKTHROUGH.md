@@ -8,6 +8,7 @@
 
 ### [x] Project Setup
 - Initialized Git repository.
+- Initialized project with `uv`.
 - Created core documentation files:
     - [README.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/README.md)
     - [TASKS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TASKS.md)

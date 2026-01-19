@@ -13,6 +13,7 @@ This plan outlines the steps to build a production-grade, multi-tenant, agentic 
 
 ### 1. Project Core & Infrastructure
 - Initialize Git and setup project structure.
+- **uv**: Use `uv` for lightning-fast dependency management.
 - **Traefik**: Configure as API Gateway for TLS, rate limiting, and auth middleware.
 - **Docker**: Create multi-stage Dockerfiles and `docker-compose.yml`.
 

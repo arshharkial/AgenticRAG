@@ -7,6 +7,7 @@
 - [ ] Project Core Infrastructure [/]
     - [x] Initialize Git repository
     - [ ] Setup Docker Compose & Traefik
+    - [x] Initialize project with uv
     - [ ] Setup FastAPI project structure
     - [ ] Configure environment variables
 - [ ] Identity & Auth implementation [ ]

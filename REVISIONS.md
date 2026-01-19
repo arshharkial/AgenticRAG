@@ -4,4 +4,5 @@
 - Initial project setup.
 - Created `DesignDocument.md` and `DatabaseDesignDocument.md` (by user).
 - Initialized git repository.
+- Switched to `uv` for dependency management instead of `poetry`.
 - Created `TASKS.md`, `IMPLEMENTATIONS.md`, `REVISIONS.md`, `README.md`, `DOCUMENTATION.md`, `WALKTHROUGH.md`.
