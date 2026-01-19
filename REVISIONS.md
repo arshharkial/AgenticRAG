@@ -19,3 +19,5 @@
 - Integrated S3 upload and Celery task triggering in API.
 - Implemented RAG Evaluation system with G-Eval metrics.
 - Developed report generation and metrics recording framework.
+- Implemented GDPR compliance flows for data purging.
+- Configured audit log persistence for SOC2 compliance.

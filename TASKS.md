@@ -35,7 +35,7 @@
     - [x] Implement G-Eval metrics
     - [x] Implement Report generation (PDF/JSON)
     - [ ] Implement Quota & Usage tracking
-- [ ] Compliance & Scale [ ]
-    - [ ] Implement GDPR deletion flows
-    - [ ] Final SOC2 verification
+- [ ] Compliance & Scale [/]
+    - [x] Implement GDPR deletion flows
+    - [/] Final SOC2 verification
     - [ ] Performance benchmaring

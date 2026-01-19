@@ -36,3 +36,8 @@
 ### [x] Evaluation & Reporting
 - Implemented G-Eval metrics (Faithfulness, Relevance, Hallucination) using LLM-as-a-judge.
 - Setup metrics recording and report generation framework.
+
+### [x] Compliance & Scale
+- Implemented GDPR data deletion flows for users and tenants.
+- Ensured strict tenant isolation at storage, vector, and database layers.
+- Integrated audit logging for SOC2 compliance.
