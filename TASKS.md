@@ -8,11 +8,11 @@
     - [x] Initialize Git repository
     - [x] Setup Docker Compose & Traefik
     - [x] Initialize project with uv
-    - [ ] Setup FastAPI project structure
-    - [ ] Configure environment variables
-- [ ] Identity & Auth implementation [ ]
-    - [ ] Implement JWT Auth with tenant extraction
-    - [ ] Implement RBAC logic
+    - [x] Setup FastAPI project structure
+    - [x] Configure environment variables
+- [ ] Identity & Auth implementation [/]
+    - [x] Implement JWT Auth with tenant extraction
+    - [x] Implement RBAC logic
     - [ ] Implement Audit logging
 - [ ] Database & Storage Implementation [ ]
     - [ ] Implement DB models (SQLAlchemy)

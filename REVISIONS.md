@@ -7,3 +7,5 @@
 - Switched to `uv` for dependency management instead of `poetry`.
 - Created `TASKS.md`, `IMPLEMENTATIONS.md`, `REVISIONS.md`, `README.md`, `DOCUMENTATION.md`, `WALKTHROUGH.md`.
 - Setup Docker and Traefik infrastructure.
+- Implemented core identity & security layer (JWT, Tenant extraction, RBAC).
+- Initialized database models and session management.
