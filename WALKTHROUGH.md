@@ -9,7 +9,8 @@
 ### [x] Project Setup
 - Initialized Git repository.
 - Initialized project with `uv`.
-- Created core documentation: [README.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/README.md), [TASKS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TASKS.md), [IMPLEMENTATIONS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/IMPLEMENTATIONS.md).
+- Created core documentation: [README.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/README.md), [TASKS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TASKS.md), [IMPLEMENTATIONS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/IMPLEMENTATIONS.md), [USAGE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/USAGE.md).
+- Generated [Postman Collection](file:///Users/arshharkial/Developer/Personal/AgenticRag/AgenticRag.postman_collection.json) for integration testing.
 
 ### [x] Infrastructure & Security
 - Configured Docker & Traefik.

@@ -4,30 +4,30 @@
     - [x] Read DesignDocument.md
     - [x] Read DatabaseDesignDocument.md
     - [x] Create detailed implementation plan
-- [ ] Project Core Infrastructure [/]
+- [x] Project Core Infrastructure
     - [x] Initialize Git repository
     - [x] Setup Docker Compose & Traefik
     - [x] Initialize project with uv
     - [x] Setup FastAPI project structure
     - [x] Configure environment variables
-- [ ] Identity & Auth implementation [/]
+- [x] Identity & Auth implementation
     - [x] Implement JWT Auth with tenant extraction
     - [x] Implement RBAC logic
     - [x] Implement Audit logging
-- [ ] Database & Storage Implementation [/]
+- [x] Database & Storage Implementation
     - [x] Implement DB models (SQLAlchemy)
     - [x] Setup PGVector / Hybrid Search
     - [x] Setup S3/CloudFront integration
-- [ ] Multi-Modal Ingestion Pipeline [/]
+- [x] Multi-Modal Ingestion Pipeline
     - [x] Implement async workers (Celery)
     - [x] Implement OCR/ASR processors (Initial)
     - [x] Implement indexing logic
-- [ ] Agentic Conversational Logic [/]
+- [x] Agentic Conversational Logic
     - [x] Setup LLM Router (Hot-swappable)
     - [x] Implement LangGraph Orchestrator
     - [x] Implement Retriever & Evaluator Agents
     - [x] Implement Self-Correction loop
-- [ ] Backend API [/]
+- [x] Backend API
     - [x] Implement Chat API
     - [x] Implement Ingestion API
     - [x] Implement Admin API
