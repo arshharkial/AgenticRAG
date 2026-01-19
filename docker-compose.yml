@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "80:80"
+      - "8080:8080" # Dashboard
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - ragnat
+
+  api:
+    build: .
+    env_file: .env
+    depends_on:
+      - db
+      - redis
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=PathPrefix(`/api`)"
+      - "traefik.http.services.api.loadbalancer.server.port=8000"
+    networks:
+      - ragnat
+
+  worker:
+    build: .
+    command: celery -A worker.celery_app worker --loglevel=info
+    env_file: .env
+    depends_on:
+      - redis
+      - db
+    networks:
+      - ragnat
+
+  db:
+    image: ankane/pgvector:v0.5.1
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-agentic_rag}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ragnat
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - ragnat
+
+networks:
+  ragnat:
+    driver: bridge
+
+volumes:
+  postgres_data:
