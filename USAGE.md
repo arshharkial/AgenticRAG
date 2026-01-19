@@ -83,6 +83,14 @@ curl -X 'POST' \
 ## 5. Evaluation Reports
 Evaluation happens automatically during the chat flow. Metrics (Faithfulness, Relevance, Hallucination) are recorded in the database and can be exported as JSON or PDF via the (planned) reporting endpoints.
 
-## 5. GDPR Compliance
+## 6. Testing
+You can run the full suite of unit and integration tests using `uv`:
+```bash
+export PYTHONPATH=$PYTHONPATH:.
+uv run pytest tests/
+```
+The suite covers security, agents, ingestion processors, and API endpoints.
+
+## 7. GDPR Compliance
 To purge user data:
 - **Endpoint**: (Internal Service) `ComplianceService.purge_user_data(user_id)`

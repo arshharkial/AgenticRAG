@@ -44,6 +44,9 @@ This plan outlines the steps to build a production-grade, multi-tenant, agentic 
 - **Evaluation System**: G-Eval style metrics (Faithfulness, Relevance, Hallucination).
 - **Reports**: Generate PDF/JSON evaluation reports.
 
+## 7. Documentation Deep Dive
+For a detailed explanation of the end-to-end flows for Ingestion, Retrieval, and Self-Correction, see [TECHNICAL_DEEP_DIVE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TECHNICAL_DEEP_DIVE.md).
+
 ## Verification Plan
 
 ### Automated Tests
