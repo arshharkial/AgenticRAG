@@ -16,11 +16,9 @@ class HybridSearchService:
         # 1. Vector Search
         vector_results = await self.vector_service.search(query, k=limit)
         
-        # 2. Keyword Search (BM25 placeholder using Postgres Full-Text Search)
-        # In a production environment, this would use a dedicated BM25 index or Elasticsearch
         keyword_results = self.db.execute(
             text(
-                "SELECT id, content FROM search_metadata " # Placeholder table
+                "SELECT id, content FROM document_chunks "
                 "WHERE tenant_id = :tenant_id AND content @@ plainto_tsquery(:query) "
                 "LIMIT :limit"
             ),

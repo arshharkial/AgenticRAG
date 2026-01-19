@@ -101,3 +101,14 @@ class ChatMessage(Base):
     content = Column(Text)
     references = Column(JSON)
     created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class DocumentChunk(Base):
+    __tablename__ = "document_chunks"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    tenant_id = Column(UUID(as_uuid=True), ForeignKey("tenants.id"))
+    ingested_object_id = Column(UUID(as_uuid=True), ForeignKey("ingested_objects.id"))
+    content = Column(Text, nullable=False)
+    embedding = Column(JSON) # Placeholder for PGVector column type if using custom libs
+    metadata_json = Column(JSON)
+    created_at = Column(DateTime, default=datetime.utcnow)

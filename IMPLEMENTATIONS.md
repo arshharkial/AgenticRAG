@@ -47,8 +47,11 @@ This plan outlines the steps to build a production-grade, multi-tenant, agentic 
 ## Verification Plan
 
 ### Automated Tests
-- `pytest` for agent logic and API endpoints.
-- Integration tests ensuring Tenant A cannot access Tenant B's data.
+- `pytest` suite in `/tests` directory covering:
+  - Security artifacts (JWT, RBAC).
+  - Agentic flows (Orchestrator retrieval/generation logic).
+  - API Endpoints (Chat, Ingest, Admin).
+- Mocking strategy for external services (S3, Pinecone) using `unittest.mock`.
 
 ### Manual Verification
 - Testing multi-modal ingestion with a mix of PDFs, images, and audio files.
