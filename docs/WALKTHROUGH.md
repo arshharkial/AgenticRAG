@@ -9,7 +9,7 @@
 ### [x] Project Setup
 - Initialized Git repository.
 - Initialized project with `uv`.
-- Created core documentation: [README.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/README.md), [TASKS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TASKS.md), [IMPLEMENTATIONS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/IMPLEMENTATIONS.md), [USAGE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/USAGE.md).
+- Created core documentation: [README.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/README.md), [TASKS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/TASKS.md), [IMPLEMENTATIONS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/IMPLEMENTATIONS.md), [USAGE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/USAGE.md).
 - Generated [Postman Collection](file:///Users/arshharkial/Developer/Personal/AgenticRag/AgenticRag.postman_collection.json) for integration testing.
 
 ### [x] Infrastructure & Security
@@ -50,6 +50,6 @@
 
 ### [x] Finalization
 - Conducted final code review and verified all design requirements are met.
-- Created [TECHNICAL_DEEP_DIVE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TECHNICAL_DEEP_DIVE.md) for architectural clarity.
+- Created [TECHNICAL_DEEP_DIVE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/TECHNICAL_DEEP_DIVE.md) for architectural clarity.
 - Updated all project documentation and revision history.
 - Verified Git commit history for atomic changes.

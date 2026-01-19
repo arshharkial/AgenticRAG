@@ -45,7 +45,7 @@ This plan outlines the steps to build a production-grade, multi-tenant, agentic 
 - **Reports**: Generate PDF/JSON evaluation reports.
 
 ## 7. Documentation Deep Dive
-For a detailed explanation of the end-to-end flows for Ingestion, Retrieval, and Self-Correction, see [TECHNICAL_DEEP_DIVE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TECHNICAL_DEEP_DIVE.md).
+For a detailed explanation of the end-to-end flows for Ingestion, Retrieval, and Self-Correction, see [TECHNICAL_DEEP_DIVE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/TECHNICAL_DEEP_DIVE.md).
 
 ## Verification Plan
 

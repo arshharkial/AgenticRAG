@@ -33,11 +33,11 @@ uvicorn main:app --reload
 ```
 
 ## Documentation
-- **Usage & cURL**: See [USAGE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/USAGE.md)
-- **Deep Dive**: See [TECHNICAL_DEEP_DIVE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TECHNICAL_DEEP_DIVE.md)
-- **Architecture**: See [DOCUMENTATION.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/DOCUMENTATION.md)
+- **Usage & cURL**: See [USAGE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/USAGE.md)
+- **Deep Dive**: See [TECHNICAL_DEEP_DIVE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/TECHNICAL_DEEP_DIVE.md)
+- **Architecture**: See [DOCUMENTATION.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/DOCUMENTATION.md)
 - **Postman**: Import [AgenticRag.postman_collection.json](file:///Users/arshharkial/Developer/Personal/AgenticRag/AgenticRag.postman_collection.json)
 
 ## Progress & Journey
-- **Tasks**: [TASKS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TASKS.md)
-- **Walkthrough**: [WALKTHROUGH.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/WALKTHROUGH.md)
+- **Tasks**: [TASKS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/TASKS.md)
+- **Walkthrough**: [WALKTHROUGH.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/docs/WALKTHROUGH.md)
