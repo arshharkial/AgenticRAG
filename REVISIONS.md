@@ -15,3 +15,7 @@
 - Developed Agentic logic with LangGraph (Orchestrator, specialized agents).
 - Implemented Self-Correction loop and structured evaluation logic.
 - Created hot-swappable LLM Router.
+- Implemented Chat, Ingestion, and Admin API endpoints.
+- Integrated S3 upload and Celery task triggering in API.
+- Implemented RAG Evaluation system with G-Eval metrics.
+- Developed report generation and metrics recording framework.

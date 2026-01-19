@@ -27,9 +27,13 @@
     - [x] Implement LangGraph Orchestrator
     - [x] Implement Retriever & Evaluator Agents
     - [x] Implement Self-Correction loop
-- [ ] Evaluation & Admin Features [ ]
-    - [ ] Implement G-Eval metrics
-    - [ ] Implement Report generation (PDF/JSON)
+- [ ] Backend API [/]
+    - [x] Implement Chat API
+    - [x] Implement Ingestion API
+    - [x] Implement Admin API
+- [ ] Evaluation & Admin Features [/]
+    - [x] Implement G-Eval metrics
+    - [x] Implement Report generation (PDF/JSON)
     - [ ] Implement Quota & Usage tracking
 - [ ] Compliance & Scale [ ]
     - [ ] Implement GDPR deletion flows

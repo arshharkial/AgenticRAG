@@ -27,3 +27,12 @@
 - Built a multi-agent `Orchestrator` using LangGraph.
 - Integrated specialized agents for context retrieval and response evaluation.
 - Implemented an iterative Self-Correction loop for high-quality answers.
+
+### [x] Backend API
+- Developed standard Chat and Ingestion API endpoints.
+- Implemented Admin API for tenant and quota management.
+- Integrated JWT authentication and RBAC into all routes.
+
+### [x] Evaluation & Reporting
+- Implemented G-Eval metrics (Faithfulness, Relevance, Hallucination) using LLM-as-a-judge.
+- Setup metrics recording and report generation framework.
