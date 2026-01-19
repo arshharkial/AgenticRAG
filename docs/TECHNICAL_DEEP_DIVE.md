@@ -1,88 +1,123 @@
-# Technical Deep Dive: Agentic RAG Platform
+# Technical Deep Dive: Agentic RAG Platform (Code Level)
 
-This document provides an in-depth explanation of the three pillars of our platform: **Multi-Modal Ingestion**, **Hybrid Retrieval**, and **Self-Improving Agentic Orchestration**.
-
----
-
-## 1. The Ingestion Process (End-to-End)
-
-The ingestion pipeline is designed to be asynchronous, multi-modal, and strictly isolated by tenant.
-
-### The Flow
-```mermaid
-sequenceDiagram
-    participant U as User/API
-    participant S as S3 Storage
-    participant DB as PostgreSQL
-    participant W as Celery Worker
-    participant V as Pinecone (Vector)
-
-    U->>S: Upload Raw File (Isolated by Prefix)
-    U->>DB: Register IngestedObject (Status: Pending)
-    U->>W: Trigger process_ingestion Task
-    W->>W: Fetch from S3 & Identify Type
-    W->>W: Run Processor (Text/OCR/ASR)
-    W->>W: Chunk Content & Generate Embeddings
-    W->>V: Index Chunks (Isolated by Namespace)
-    W->>DB: Store Metadata (DocumentChunks Table)
-    W->>DB: Update Status: Completed
-```
-
-### Key Concepts
-- **Multi-Modal Processors**: We use a `BaseProcessor` strategy. While the current implementation handles Text and Images (OCR placeholder), the architecture allows adding `VideoProcessor` or `AudioProcessor` by simply extending the base class and registering it in the task factory.
-- **Tenant Isolation**: Every object in S3 is prefixed with `/{tenant_id}/`. Every vector in Pinecone is stored within a `namespace` named after the `tenant_id`. This ensures zero data leakage at the infra level.
-- **Content Chunking**: We use a semantic-aware chunking strategy (overlapping windows) to preserve context across chunk boundaries, preventing "broken" answers during retrieval.
+This document provides a comprehensive, step-by-step breakdown of how the Multi-Agent RAG Platform works. It is designed for both experienced developers and novices to understand the internal logic, data flow, and "why" behind the implementation.
 
 ---
 
-## 2. The Retrieval Process (Hybrid Search)
+## 1. The Ingestion Pipeline (Asynchronous & Isolated)
 
-Retrieval in this system combines the precision of keyword matching with the semantic depth of vector embeddings.
+When you upload a file, the system doesn't process it immediately. Instead, it schedules an asynchronous "task" to handle the heavy lifting.
 
-### The Logic
-We implement **Hybrid Search** using a reciprocal rank fusion (RRF) inspired approach:
-1. **Semantic Search (Vector)**: Finds chunks that are conceptually similar to the query, even if keywords don't match (e.g., "automobile" matching "car").
-2. **Keyword Search (BM25/FTS)**: Uses PostgreSQL Full-Text Search to find exact matches, specific technical IDs, or rare terms that vectors might miss.
+### Step 1: API Endpoint (`api/v1/ingestion.py`)
+1. **Input**: A `multipart/form-data` file upload and a valid JWT token.
+2. **Action**:
+   - Extracts `tenant_id` from the token.
+   - Saves the file temporarily to a staging area.
+   - Creates an `IngestedObject` entry in PostgreSQL with status `pending`.
+   - Triggers the Celery task: `process_ingestion.delay(object_id, tenant_id, file_path, content_type)`.
+3. **Output**: Returns a `202 Accepted` response with the `object_id`.
 
-### Why Hybrid?
-Vector search alone can hallucinate similarity or fail on technical identifiers. Keyword search alone fails on synonyms. Hybrid search bridges this gap.
+### Step 2: The Celery Task (`services/ingestion/tasks.py`)
+This is where the actual work happens in the background.
 
-### The Query Flow
-```mermaid
-graph TD
-    A[User Query] --> B{Hybrid Search Service}
-    B --> C[Pinecone: Vector Sim Search]
-    B --> D[PostgreSQL: Plainto_tsquery]
-    C --> E[Normalize Scores]
-    D --> E
-    E --> F[Simple Reranker]
-    F --> G[Context Chunks]
+```python
+@celery_app.task(name="process_ingestion")
+def process_ingestion(object_id, tenant_id, file_path, content_type):
+    # 1. Select the right tool for the job (Text or Image)
+    if "text" in content_type: processor = TextProcessor()
+    # 2. Extract content and break into chunks
+    chunks = processor.process(file_path) 
+    # 3. Save to the Vector Database (Pinecone) within the tenant's namespace
+    vector_service = VectorStoreService(tenant_id)
+    vector_service.add_texts(texts, metadatas)
+    # 4. Finalize the object status
+    obj.ingestion_status = "completed"
 ```
+
+- **Inputs**: File path and metadata.
+- **Outputs**: Chunks and embeddings stored in Pinecone and PostgreSQL.
+- **Errors**: If a file is corrupted, the task catches the exception, updates the status to `failed`, and logs the error in the `AuditLog`.
 
 ---
 
-## 3. The Self-Improving Process (Agentic Loop)
+## 2. The Hybrid Retrieval Process (Precise & Semantic)
 
-Unlike standard RAG, which is a straight line (Query -> Retrieve -> Generate), our system uses **LangGraph** to create a self-correcting loop.
+Standard RAG often misses specific keywords or technical IDs. Our **Hybrid Search** service fixes this by combining two different search methods.
 
-### The Agentic Graph
-```mermaid
-graph TD
-    Start((Start)) --> R[Retriever Agent]
-    R --> G[Generator Agent]
-    G --> E[Evaluator Agent]
-    E -->|Pass| End((End))
-    E -->|Fail < 3 iterations| R
-    E -->|Fail > 3 iterations| End
-```
+### Step 1: Vector Search (Semantic)
+- **Tool**: `services/vector_store.py`
+- **How**: It uses OpenAI's `text-embedding-3-small` to convert the query into a list of numbers (a vector). It then asks Pinecone: *"Which document chunks have numbers most similar to these?"*
+- **Best For**: Meaning, synonyms, and context.
 
-### Components of Self-Improvement
-- **The Evaluator Agent**: This agent acts as a "Judge". It uses G-Eval style metrics to score the generated response:
-    - **Faithfulness**: Is the answer derived *only* from the provided context?
-    - **Relevance**: Does the answer actually address the user's question?
-    - **Hallucination**: Does the answer contain facts not present in the context?
-- **Self-Correction Logic**: If the Evaluator gives a low score or detects a hallucination, the system triggers a **re-retrieval**. It might broaden the search query or fetch more chunks to "prime" the generator with better info.
-- **State management**: LangGraph maintains the `AgentState` (query, context, response, iteration count), allowing the system to learn from previous failures in the same session.
+### Step 2: Keyword Search (Exact)
+- **Tool**: `services/hybrid_search.py` (PostgreSQL Full-Text Search)
+- **How**: It runs a SQL query:
+  ```sql
+  SELECT content FROM document_chunks 
+  WHERE tenant_id = :id AND content @@ plainto_tsquery(:query)
+  ```
+- **Best For**: Names, technical IDs, and specific terminology.
 
-### The "Loop" Concept
-If the first attempt results in a hallucination, the orchestrator doesn't just return it. It sees the "hallucination: true" flag from the Evaluator and goes back to the Retrieval node, perhaps using a refined search strategy, until a high-fidelity answer is produced or the retry budget is exhausted.
+### Step 3: Reranking & Fusion
+1. **Input**: Results from both Vector and Keyword searches.
+2. **Action**: It de-duplicates the lists (if a chunk appears in both) and gives a combined list sorted by relevance.
+3. **Output**: A final list of the top 5 most relevant chunks.
+
+---
+
+## 4. The Agentic Loop (Self-Correcting Graph)
+
+This is the "brain" of the platform. We use **LangGraph** to build a workflow that acts like a human researcher.
+
+### The Graph Logic (`agents/orchestrator.py`)
+
+#### Node 1: `retrieve`
+- **What**: Calls the `HybridSearchService`.
+- **Logic**: Fetches chunks and adds them to the "context" for the next agent.
+- **Input**: User Query.
+- **Output**: List of Context Chunks.
+
+#### Node 2: `generate`
+- **What**: Sends the query + context to the LLM (OpenAI/Anthropic).
+- **Prompt Logic**: *"Using ONLY this context, answer the user. If you don't know, say you don't know."*
+- **Input**: Query + Context.
+- **Output**: A raw AI Response.
+
+#### Node 3: `evaluate` (The Judge)
+- **What**: A specialized LLM call that returns a structured "grade".
+- **Parameters**:
+  - `score`: How relevant is the answer? (0.0 to 1.0)
+  - `hallucination`: Did the AI invent facts not in the context? (True/False)
+- **Input**: Query + Context + Response.
+- **Output**: A numerical score and a boolean flag.
+
+#### Node 4: `should_continue` (The Decision Maker)
+- **Logic**:
+  - If `hallucination == True` OR `score < 0.7`:
+    - If attempts < 3: **Go back to `retrieve`** (Try to find better info).
+    - Else: **End** (We tried our best).
+  - Else: **End** (Success!).
+
+### Error Handling in Agents
+- **Timeouts**: If the LLM takes too long, the orchestrator raises an `LLMTimeoutError`.
+- **Bad Input**: If the user sends an empty query, the system returns a pre-defined error message without wasting LLM tokens.
+
+---
+
+## 5. Security & Isolation (The "Wall")
+
+### JWT Extraction (`core/security.py`)
+Every request travels with a passport (JWT). 
+1. **Verification**: The system checks the signature using a `SECRET_KEY`.
+2. **extraction**: It pulls out the `tenant_id`. 
+3. **Enforcement**: This ID is passed to *every* service. If you are Tenant A, your queries *only ever* see `namespace="tenant-a"` in the database.
+
+### Audit Logging
+Any critical action (deleting data, creating a tenant) triggers a `db.add(AuditLog(...))` call. This is non-negotiable for SOC2 compliance.
+
+---
+
+## Summary for Novices
+- **Think of Ingestion** as a librarian scanning books into the system while you wait.
+- **Think of Retrieval** as a search engine that looks for both the exact words and the overall "meaning".
+- **Think of the Agentic Loop** as a student who writes an answer, reads it, realizes they missed a point, goes back to the book to check, and then rewrites it before handing it to you.
