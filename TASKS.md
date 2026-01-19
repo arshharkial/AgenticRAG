@@ -13,7 +13,7 @@
 - [ ] Identity & Auth implementation [/]
     - [x] Implement JWT Auth with tenant extraction
     - [x] Implement RBAC logic
-    - [ ] Implement Audit logging
+    - [x] Implement Audit logging
 - [ ] Database & Storage Implementation [/]
     - [x] Implement DB models (SQLAlchemy)
     - [x] Setup PGVector / Hybrid Search
@@ -21,7 +21,7 @@
 - [ ] Multi-Modal Ingestion Pipeline [/]
     - [x] Implement async workers (Celery)
     - [x] Implement OCR/ASR processors (Initial)
-    - [ ] Implement indexing logic
+    - [x] Implement indexing logic
 - [ ] Agentic Conversational Logic [/]
     - [x] Setup LLM Router (Hot-swappable)
     - [x] Implement LangGraph Orchestrator
@@ -31,11 +31,11 @@
     - [x] Implement Chat API
     - [x] Implement Ingestion API
     - [x] Implement Admin API
-- [ ] Evaluation & Admin Features [/]
+- [x] Evaluation & Admin Features
     - [x] Implement G-Eval metrics
     - [x] Implement Report generation (PDF/JSON)
-    - [ ] Implement Quota & Usage tracking
-- [ ] Compliance & Scale [/]
+    - [x] Implement Quota & Usage tracking
+- [x] Compliance & Scale
     - [x] Implement GDPR deletion flows
-    - [/] Final SOC2 verification
-    - [ ] Performance benchmaring
+    - [x] Final SOC2 verification
+    - [x] Performance benchmaring
