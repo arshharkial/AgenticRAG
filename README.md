@@ -34,6 +34,7 @@ uvicorn main:app --reload
 
 ## Documentation
 - **Usage & cURL**: See [USAGE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/USAGE.md)
+- **Deep Dive**: See [TECHNICAL_DEEP_DIVE.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TECHNICAL_DEEP_DIVE.md)
 - **Architecture**: See [DOCUMENTATION.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/DOCUMENTATION.md)
 - **Postman**: Import [AgenticRag.postman_collection.json](file:///Users/arshharkial/Developer/Personal/AgenticRag/AgenticRag.postman_collection.json)
 
