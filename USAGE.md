@@ -28,27 +28,59 @@ This guide explains how to set up, run, and interact with the Agentic Conversati
 
 ## 3. API Usage Flow
 
-### Authentication
-All requests require a Bearer JWT token. In a production setup, you would use the login flow. For testing, ensure your token contains `tenant_id` and `sub` (user_id).
+### Authentication & Identity
+All requests require a Bearer JWT token. The `user_id` and `tenant_id` are extracted from the JWT payload.
 
-### Step 1: Ingest Data
-Upload a file (PDF, Image, Text) to the system.
-- **Endpoint**: `POST /api/v1/ingest/upload`
-- **Body**: `multipart/form-data` with `file`
-- **Output**: Returns an `object_id` and `pending` status.
+**How to get user_id and tenant_id?**
+1. **Login**: When a user logs in via the (planned) `/api/v1/login/access-token` endpoint, the system generates a JWT.
+2. **Payload**: The JWT contains:
+   - `sub`: The unique identifier for the user (**user_id**).
+   - `tenant_id`: The identifier for the tenant (**tenant_id**).
+3. **Extraction**: The backend middleware (`deps.get_current_user_tenant`) automatically decodes this token to identify the acting user and their isolation boundary.
 
-### Step 2: Chat with Agents
-Once ingestion is complete, ask questions about your data.
-- **Endpoint**: `POST /api/v1/chat/`
-- **Body**: `{"content": "What is the summary of the design document?"}`
-- **Output**: Returns the generated response after agentic orchestration.
+---
 
-### Step 3: Admin Management
-Manage tenants and view usage.
-- **Endpoint**: `POST /api/v1/admin/tenants`
-- **Body**: `{"name": "New Tenant"}`
+## 4. cURL Examples
 
-## 4. Evaluation Reports
+Replace `{{token}}` with your actual JWT.
+
+### A. Create a New Tenant (Admin Only)
+```bash
+curl -X 'POST' \
+  'http://localhost/api/v1/admin/tenants' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer {{token}}' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "Global Corp"
+}'
+```
+
+### B. Upload a Document
+```bash
+curl -X 'POST' \
+  'http://localhost/api/v1/ingest/upload' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer {{token}}' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@/path/to/your/document.pdf;type=application/pdf'
+```
+
+### C. Chat with the Agent
+```bash
+curl -X 'POST' \
+  'http://localhost/api/v1/chat/' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer {{token}}' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "content": "What are the main findings in the uploaded document?"
+}'
+```
+
+---
+
+## 5. Evaluation Reports
 Evaluation happens automatically during the chat flow. Metrics (Faithfulness, Relevance, Hallucination) are recorded in the database and can be exported as JSON or PDF via the (planned) reporting endpoints.
 
 ## 5. GDPR Compliance
