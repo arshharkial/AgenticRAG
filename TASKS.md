@@ -22,11 +22,11 @@
     - [x] Implement async workers (Celery)
     - [x] Implement OCR/ASR processors (Initial)
     - [ ] Implement indexing logic
-- [ ] Agentic Conversational Logic [ ]
-    - [ ] Setup LLM Router (Hot-swappable)
-    - [ ] Implement LangGraph Orchestrator
-    - [ ] Implement Retriever & Evaluator Agents
-    - [ ] Implement Self-Correction loop
+- [ ] Agentic Conversational Logic [/]
+    - [x] Setup LLM Router (Hot-swappable)
+    - [x] Implement LangGraph Orchestrator
+    - [x] Implement Retriever & Evaluator Agents
+    - [x] Implement Self-Correction loop
 - [ ] Evaluation & Admin Features [ ]
     - [ ] Implement G-Eval metrics
     - [ ] Implement Report generation (PDF/JSON)

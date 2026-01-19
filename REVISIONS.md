@@ -12,3 +12,6 @@
 - Implemented Storage Service (S3) and Vector Store Service (Pinecone).
 - Setup Celery worker and multi-modal ingestion pipeline.
 - Implemented base processors for Text and Image content.
+- Developed Agentic logic with LangGraph (Orchestrator, specialized agents).
+- Implemented Self-Correction loop and structured evaluation logic.
+- Created hot-swappable LLM Router.

@@ -21,3 +21,9 @@
 - Configured Celery for asynchronous background tasks.
 - Implemented base `TextProcessor` and `ImageProcessor` for content chunking.
 - Developed the `process_ingestion` task for end-to-end data processing and indexing.
+
+### [x] Agentic Conversational Logic
+- Implemented a hot-swappable `LLMRouter` for dynamic provider switching.
+- Built a multi-agent `Orchestrator` using LangGraph.
+- Integrated specialized agents for context retrieval and response evaluation.
+- Implemented an iterative Self-Correction loop for high-quality answers.
