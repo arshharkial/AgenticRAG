@@ -14,10 +14,10 @@
     - [x] Implement JWT Auth with tenant extraction
     - [x] Implement RBAC logic
     - [ ] Implement Audit logging
-- [ ] Database & Storage Implementation [ ]
-    - [ ] Implement DB models (SQLAlchemy)
-    - [ ] Setup PGVector / Hybrid Search
-    - [ ] Setup S3/CloudFront integration
+- [ ] Database & Storage Implementation [/]
+    - [x] Implement DB models (SQLAlchemy)
+    - [x] Setup PGVector / Hybrid Search
+    - [x] Setup S3/CloudFront integration
 - [ ] Multi-Modal Ingestion Pipeline [ ]
     - [ ] Implement async workers (Celery)
     - [ ] Implement OCR/ASR processors

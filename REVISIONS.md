@@ -9,3 +9,4 @@
 - Setup Docker and Traefik infrastructure.
 - Implemented core identity & security layer (JWT, Tenant extraction, RBAC).
 - Initialized database models and session management.
+- Implemented Storage Service (S3) and Vector Store Service (Pinecone).

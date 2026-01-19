@@ -9,10 +9,10 @@
 ### [x] Project Setup
 - Initialized Git repository.
 - Initialized project with `uv`.
-- Created core documentation files:
-    - [README.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/README.md)
-    - [TASKS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TASKS.md)
-    - [IMPLEMENTATIONS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/IMPLEMENTATIONS.md)
-    - [REVISIONS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/REVISIONS.md)
-    - [DOCUMENTATION.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/DOCUMENTATION.md)
-    - [WALKTHROUGH.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/WALKTHROUGH.md)
+- Created core documentation: [README.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/README.md), [TASKS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/TASKS.md), [IMPLEMENTATIONS.md](file:///Users/arshharkial/Developer/Personal/AgenticRag/IMPLEMENTATIONS.md).
+
+### [x] Infrastructure & Security
+- Configured Docker & Traefik.
+- Implemented JWT & RBAC.
+- Setup S3 Storage & Vector Store (Pinecone).
+- Implemented Hybrid Search logic.
